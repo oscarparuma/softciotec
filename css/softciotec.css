@@ -1,0 +1,158 @@
+body { 
+  font: 14px helvetica neue, helvetica, arial, sans-serif;
+  overflow: hidden;
+}
+
+#cy {
+  height: 40%;
+  /*width: 33%;*/
+  position: absolute;
+  left: 8px;
+  top: 34px;
+  /*background-color: #EDFAEF;*/
+}
+
+#cy2 {
+  height: 40%;
+  /*width: 33%;*/
+  position: absolute;
+  left: 8px;
+  /*top: 218px;*/
+  top: 19.9em;
+  /*background-color: #EDF1FA;*/
+  /*border-top: 1px solid #ccc;*/
+}
+
+#cy3 {
+  height: 40%;
+  /*width: 33%;*/
+  position: absolute;
+  left: 395px;
+  top: 34px;
+}
+
+#cy5 {
+  height: 40%;
+  position: absolute;
+  left: 782px;
+  top: 34px;
+}
+
+.tier {
+	position: absolute;
+	white-space: normal;
+	font: 20px helvetica neue, helvetica, arial, sans-serif;
+	color: gray;
+	width: 5%;
+	text-align: center;
+	left: 61em;
+}
+
+.socialTier {
+	top: 2em;
+}
+
+.technicalTier {
+	top: 15em;
+}
+
+.container {
+  display: table;
+  width: 86%;
+  border-collapse: collapse;
+}
+
+.heading {
+  font-weight: bold;
+  display:table-row;
+  background-color:#6272A3;
+  text-align: center;
+  line-height: 25px;
+  font-size: 14px;
+  font-family:georgia;
+  color:#fff;    
+}
+
+.table-row {  
+  display:table-row;
+}
+
+.col {
+  display: table-cell;
+  border: 1px solid #CCC;
+  height: 50%;
+  width: 386px;
+}
+
+.colSpan {
+	width: 55.2em;
+	left: 395px;
+	top: 19.9em;
+	position: absolute;
+}
+
+span {
+	font: 20px helvetica neue, helvetica, arial, sans-serif;
+	text-align: center;
+	color: #6272A3;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 90%;
+    height: 70%;
+    margin: auto;
+	line-height: 200%;
+}
+
+hr {
+  border: 3px dashed #C0C0C0;
+  border-style: none none dashed;
+  color: gray;
+  width: 45%;
+  position: relative;
+  left: 75em;
+  top: -0.6em;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 1px dashed;
+}
+
+a:link {
+  color: #777;
+  text-decoration: none;
+}
+ 
+a:active {
+  color: #30B745;
+  text-decoration: none;
+}
+ 
+a:visited {
+  color: #999999;
+  text-decoration: none;
+}
+a:hover {
+  color: #30B745;
+  text-decoration: none;
+}
+
+/* Javascript Network Clustering Library */
+.node {
+	stroke: #76B37E;
+	stroke-width: 1.5px;
+}
+.link {
+	stroke: #B1F2BA;
+	stroke-opacity: .6;
+}
+
+button#clusterButton  {
+  margin-left: 29.5em;
+  margin-top: 0.2em;
+  position: absolute;
+  font-size: 20pt:
+}

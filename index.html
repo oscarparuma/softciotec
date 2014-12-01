@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- CSS Files -->
+<link href="css/softciotec.css" rel="stylesheet" />
+<!-- Sunburst - Sunburst of a Directory Tree -->
+<link type="text/css" href="css/base.css" rel="stylesheet" />
+<link type="text/css" href="css/Sunburst.css" rel="stylesheet" />
+<!-- ForceDirected - Graph Operations -->
+<link type="text/css" href="css/ForceDirected.css" rel="stylesheet" />
+<meta charset=utf-8 />
+<title>SoftCioTec Demo</title>
+<script src="js/jquery.min.js"></script>
+<script src="js/cytoscape.min.js"></script>
+<script src="js/softciotec.js"></script>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/netClustering.js"> </script>
+<!-- JIT Library File -->
+<script language="javascript" type="text/javascript" src="js/Jit/jit.js"></script>
+<!-- Example File - Sunburst - Sunburst of a Directory Tree -->
+<script language="javascript" type="text/javascript" src="js/SunburstExample2.js"></script>
+<!-- Example File - ForceDirected - Graph Operations -->
+<script language="javascript" type="text/javascript" src="js/ForceDirectedExample2.js"></script>
+</head>
+<body onload="init();initFD();">
+<div class="container">
+	<div class="heading">
+		<div class="col">Source Code Repository</div>
+		<div class="col">Mailing List</div>
+		<div class="col">Issue Tracker</div>
+	</div>
+	<button id="clusterButton" type="button">Cluster</button>
+	<a style="position:absolute;top:3em;left:45em;" href="test/exampleForce.html" target="_blank">Open in a new window.</a>
+	<div class="table-row">
+		<div class="col" id="cy"></div>
+		<div class="col" id="graph"></div>
+		<!--<div class="col" id="cy5"></div>-->
+		<div class="col" id="infovisFD"></div>
+	</div>
+	<div class="table-row">
+		<!--<div class="col" id="cy2"></div>-->
+		<div class="col" id="infovis"></div>
+		<div class="col colSpan">
+			<span>
+				SoftCioTec
+				<br/>
+				Analysis and Visualization of Socio-Technical Aspects in
+				<br/>
+				Free/Libre and Open-Source Software (FLOSS) Evolution
+				<br/>
+				Powered by <a href="http://cytoscape.github.io/cytoscape.js/index.html" target="_blank">Cytoscape.js</a>,
+				<a href="http://bl.ocks.org/john-guerra/ecdde32ab4ad91a1a240" target="_blank">Javascript Network Clustering Library</a>,
+				<a href="http://jquery.com/" target="_blank">jQuery</a>,
+				<a href="http://d3js.org/" target="_blank">D3.js</a>
+				<a href="http://philogb.github.io/jit/" target="_blank">JavaScript InfoVis Toolkit</a>
+			</span>
+		</div>
+	</div>
+	<div class="tier socialTier">Social Tier</div>
+	<div id="inner-details-social"></div>
+	<hr>
+	<div class="tier technicalTier">Technical Tier</div>
+	<div id="inner-details"></div>
+</div>
+</body>
+<script>
+
+var width = 385,
+    height = 240;
+
+var color = d3.scale.category20();
+
+var force = d3.layout.force()
+    .charge(-120)
+    .linkDistance(30)
+    .size([width, height]);
+
+var svg = d3.select("#graph").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("test/miserables.json", function(error, graph) {
+  force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 5)
+      .call(force.drag);
+
+  node.append("title")
+      .text(function(d) { return d.name; });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  });
+
+  d3.select("#clusterButton").on("click", function () {
+
+    /******************/
+    /*  Clustering    */
+    /******************/
+    netClustering.cluster(graph.nodes, graph.links);
+
+    svg.selectAll(".node").transition().duration(2000).style("fill", function(d) { return color(d.cluster); });
+  });
+});
+
+</script>
+</html>
